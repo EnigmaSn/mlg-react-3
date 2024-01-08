@@ -1,18 +1,9 @@
-// function App() {
-//   return (
-//     <>
-//       <h1>Calendar</h1>
-//     </>
-//   );
-// }
-
-// export default App;
-
-import "./app.css";
-import React from "react";
+import React, { useState } from "react";
+import "./index.css";
 import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import type { BadgeProps, CalendarProps } from "antd";
-import { Badge, Calendar } from "antd";
+import { Alert, Badge, Calendar } from "antd";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -52,6 +43,19 @@ const getMonthData = (value: Dayjs) => {
 };
 
 const App: React.FC = () => {
+  const [value, setValue] = useState(() => dayjs("2017-01-25"));
+  const [selectedValue, setSelectedValue] = useState(() => dayjs("2017-01-25"));
+
+  const onSelect = (newValue: Dayjs) => {
+    setValue(newValue);
+    setSelectedValue(newValue);
+    console.log("selected", newValue);
+  };
+
+  const onPanelChange = (newValue: Dayjs) => {
+    setValue(newValue);
+  };
+
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
     return num ? (
@@ -84,7 +88,19 @@ const App: React.FC = () => {
     return info.originNode;
   };
 
-  return <Calendar cellRender={cellRender} />;
+  return (
+    <>
+      <Alert
+        message={`You selected date: ${selectedValue?.format("YYYY-MM-DD")}`}
+      />
+      <Calendar
+        value={value}
+        cellRender={cellRender}
+        onSelect={onSelect}
+        onPanelChange={onPanelChange}
+      />
+    </>
+  );
 };
 
 export default App;
