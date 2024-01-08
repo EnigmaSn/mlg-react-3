@@ -3,7 +3,7 @@ import "./index.css";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import type { BadgeProps, CalendarProps } from "antd";
-import { Alert, Badge, Calendar } from "antd";
+import { Alert, Badge, Calendar, Modal } from "antd";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -42,14 +42,37 @@ const getMonthData = (value: Dayjs) => {
   }
 };
 
+interface Event {
+  content: string;
+  type: string;
+  startTime?: Dayjs;
+  endTime?: Dayjs;
+  remindTime?: unknown; // todo
+}
+
+const eventsModal = (events: Event[]) => {
+  console.log("modal events", events);
+  Modal.info({
+    title: "Events info",
+    content: (
+      <ul className="events-list">
+        {events.map((event: Event, index: number) => {
+          return <li key={index}>{event.content}</li>;
+        })}
+      </ul>
+    ),
+    onOk() {},
+  });
+};
+
 const App: React.FC = () => {
-  const [value, setValue] = useState(() => dayjs("2017-01-25"));
-  const [selectedValue, setSelectedValue] = useState(() => dayjs("2017-01-25"));
+  const [value, setValue] = useState(() => dayjs());
+  const [selectedValue, setSelectedValue] = useState(() => dayjs());
 
   const onSelect = (newValue: Dayjs) => {
     setValue(newValue);
     setSelectedValue(newValue);
-    console.log("selected", newValue);
+    eventsModal(getListData(newValue));
   };
 
   const onPanelChange = (newValue: Dayjs) => {
