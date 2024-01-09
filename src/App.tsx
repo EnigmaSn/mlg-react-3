@@ -51,7 +51,6 @@ interface Event {
 }
 
 const eventsModal = (events: Event[]) => {
-  console.log("modal events", events);
   Modal.info({
     title: "Events info",
     content: (
