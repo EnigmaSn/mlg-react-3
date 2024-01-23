@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./index.css";
+import "./calendar.css";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import type { BadgeProps, CalendarProps } from "antd";
