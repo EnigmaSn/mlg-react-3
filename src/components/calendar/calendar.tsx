@@ -7,6 +7,8 @@ import { Alert, Badge, Calendar, Modal } from "antd";
 
 const getListData = (value: Dayjs) => {
   let listData;
+  console.log("value 1", value.isSame);
+
   switch (value.date()) {
     case 8:
       listData = [

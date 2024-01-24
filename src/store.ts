@@ -5,4 +5,6 @@ const store = configureStore({
   reducer,
 });
 
-export default store;
+type RootState = ReturnType<typeof store.getState>;
+
+export { store, RootState };
