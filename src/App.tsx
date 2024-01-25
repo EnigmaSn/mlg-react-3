@@ -1,18 +1,16 @@
 import React from "react";
-import { store } from "./store";
+import { RootState } from "./store";
 import MyCalendar from "./components/calendar/calendar";
 import { connect } from "react-redux";
 
 import "./index.css";
 
-const App: React.FC = () => {
-  console.log("store ", store);
+const App: React.FC = (props) => {
   return <MyCalendar />;
 };
 
-const mapStateToProps = (store: object) => {
-  const { calendar } = store;
-  return store;
+const mapStateToProps = ({ calendar, reminders }: RootState) => {
+  return { calendar, reminders };
 };
 
 export default connect(mapStateToProps)(App);
